@@ -1,0 +1,41 @@
+server:
+  applicationContextPath: /myretail
+  applicationConnectors:
+    - type: http
+      port: 8080
+  adminConnectors:
+    - type: http
+      port: 8081
+logging:
+  level: INFO
+  loggers:
+    com.dsworks.retail: INFO
+  appenders:
+    - type: console
+      threshold: ALL
+      timeZone: UTC
+      target: stdout
+      logFormat: "%-6level [%d{HH:mm:ss.SSS}] [%t] %logger{5} - %X{code} %msg %n"
+    - type: file
+      threshold: ALL
+      logFormat: "%-6level [%d{HH:mm:ss.SSS}] [%t] %logger{5} - %X{code} %msg %n"
+      archive: true
+      currentLogFilename: /tmp/logs/myretail.log
+      archivedLogFilenamePattern: /tmp/myretail-%d{yyyy-MM-dd}-%i.log.gz
+      archivedFileCount: 5
+      timeZone: UTC
+      maxFileSize: 10MB
+jerseyClient:
+  retries: 3
+  connectionTimeout: 10 s
+  timeout: 10 s
+  tls:
+    keyStorePath: /src/main/resources
+    keyStorePassword: retail123
+    keyStoreType: JKS
+cassandra:
+  clusterName: cass1
+  keyspace: product-ks
+  validationQuery: select * from product
+  contactPoints: [192.168.99.100]
+  port: 9042
