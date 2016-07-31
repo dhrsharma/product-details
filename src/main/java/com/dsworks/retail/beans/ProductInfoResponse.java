@@ -1,10 +1,8 @@
-package com.dsworks.retail.model;
+package com.dsworks.retail.beans;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-/**
- * Created by dhruvsharma on 7/30/16.
- */
+
 public class ProductInfoResponse {
     //{"id":13860428,"name":"The Big Lebowski (Blu-ray) (Widescreen)","current_price":{"value": 13.49,"currency_code":"USD"}}
 
@@ -19,23 +17,26 @@ public class ProductInfoResponse {
         return id;
     }
 
-    public void setId(String id) {
+    public ProductInfoResponse setId(String id) {
         this.id = id;
+        return this;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public ProductInfoResponse setName(String name) {
         this.name = name;
+        return this;
     }
 
     public Price getPrice() {
         return price;
     }
 
-    public void setPrice(Price price) {
+    public ProductInfoResponse setPrice(Price price) {
         this.price = price;
+        return this;
     }
 }

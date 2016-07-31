@@ -1,10 +1,8 @@
-package com.dsworks.retail.model;
+package com.dsworks.retail.beans;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-/**
- * Created by dhruvsharma on 7/30/16.
- */
+
 public class Price {
     @JsonProperty
     private String value;
@@ -15,15 +13,17 @@ public class Price {
         return value;
     }
 
-    public void setValue(String value) {
+    public Price setValue(String value) {
         this.value = value;
+        return this;
     }
 
     public String getCurrencyCode() {
         return currencyCode;
     }
 
-    public void setCurrencyCode(String currencyCode) {
+    public Price setCurrencyCode(String currencyCode) {
         this.currencyCode = currencyCode;
+        return this;
     }
 }

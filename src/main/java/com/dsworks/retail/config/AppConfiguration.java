@@ -8,9 +8,7 @@ import systems.composable.dropwizard.cassandra.CassandraFactory;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-/**
- * Created by dhruvsharma on 7/30/16.
- */
+
 public class AppConfiguration extends Configuration {
 
     @Valid
