@@ -2,7 +2,7 @@ package com.dsworks.retail.config;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.dropwizard.Configuration;
-import org.hibernate.validator.constraints.NotEmpty;
+import io.dropwizard.client.JerseyClientConfiguration;
 import systems.composable.dropwizard.cassandra.CassandraFactory;
 
 import javax.validation.Valid;
@@ -15,7 +15,13 @@ public class AppConfiguration extends Configuration {
 
     @Valid
     @NotNull
+    @JsonProperty("cassandra")
     private CassandraFactory cassandra = new CassandraFactory();
+
+    @Valid
+    @NotNull
+    @JsonProperty("jerseyClient")
+    private JerseyClientConfiguration jerseyClient = new JerseyClientConfiguration();
 
     @JsonProperty("cassandra")
     public CassandraFactory getCassandraFactory() {
@@ -25,5 +31,15 @@ public class AppConfiguration extends Configuration {
     @JsonProperty("cassandra")
     public void setCassandraFactory(CassandraFactory cassandra) {
         this.cassandra = cassandra;
+    }
+
+    @JsonProperty("jerseyClient")
+    public JerseyClientConfiguration getJerseyClient() {
+        return jerseyClient;
+    }
+
+    @JsonProperty("jerseyClient")
+    public void setJerseyClient(JerseyClientConfiguration jerseyClient) {
+        this.jerseyClient = jerseyClient;
     }
 }
