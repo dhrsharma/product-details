@@ -3,11 +3,13 @@ package com.dsworks.retail.util;
 
 public enum AppCodeConstants {
 
-    RESOURCE_NOT_FOUND("2001", "Resource Not Found. Please try with valid Product ID"),
+    RESOURCE_NOT_FOUND("2001", "No such Product exists with this ID."),
 
     DATABASE_ERROR ("3000", "Database Error"),
 
-    UNEXPECTED_ERROR("5001","Unexpected Error");
+    UNEXPECTED_ERROR("5001","Unexpected Error"),
+
+    INPUT_VALIDATION_FAILED("4001", "Input Validation Failed. Please try with valid ID.");
 
     private String code;
 

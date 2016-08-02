@@ -1,10 +1,10 @@
 package com.dsworks.retail.service;
 
 
+import com.dsworks.retail.api.RetailStore;
 import com.dsworks.retail.beans.ProductInfoResponse;
 import com.dsworks.retail.exception.RetailException;
 import com.dsworks.retail.model.Product;
-import com.dsworks.retail.store.RetailStore;
 import com.dsworks.retail.util.AppCodeConstants;
 import com.dsworks.retail.util.ApplicationUtil;
 import com.google.inject.Inject;
@@ -20,6 +20,8 @@ public class RetailService {
 
     private final RetailStore dataStore;
 
+    private final String numberRegex = "\\d+";
+
     @Inject
     public RetailService(final RetailStore store) {
         this.dataStore = store;
@@ -27,17 +29,21 @@ public class RetailService {
 
     public ProductInfoResponse getProductInfo(final String id) throws RetailException {
         ProductInfoResponse response = null;
-        if(StringUtils.isBlank(id)){
-            throw new RetailException(Response.Status.NOT_FOUND, AppCodeConstants.RESOURCE_NOT_FOUND.getCode(),
-                    AppCodeConstants.RESOURCE_NOT_FOUND.getMessage());
+        if(StringUtils.isNotBlank(id) && !id.matches(numberRegex)){
+            throw new RetailException(Response.Status.BAD_REQUEST, AppCodeConstants.INPUT_VALIDATION_FAILED.getCode(),
+                    AppCodeConstants.INPUT_VALIDATION_FAILED.getMessage());
         }
         try {
-            Product product = dataStore.getProductById(id);
+            Product product = dataStore.getProductById(Integer.parseInt(id));
             response = ApplicationUtil.convertToProductResponse(product);
         } catch (Exception ex) {
             LOG.error("Error while retrieving Product Details with Message - {}", ex.getMessage());
-            throw new RetailException(Response.Status.NOT_FOUND, AppCodeConstants.DATABASE_ERROR.getCode(),
+            throw new RetailException(Response.Status.SERVICE_UNAVAILABLE, AppCodeConstants.DATABASE_ERROR.getCode(),
                     AppCodeConstants.DATABASE_ERROR.getMessage());
+        }
+        if(response == null){
+            throw new RetailException(Response.Status.NOT_FOUND, AppCodeConstants.RESOURCE_NOT_FOUND.getCode(),
+                    AppCodeConstants.RESOURCE_NOT_FOUND.getMessage());
         }
         return response;
     }

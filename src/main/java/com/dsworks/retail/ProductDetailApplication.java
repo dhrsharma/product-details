@@ -16,7 +16,8 @@ public class ProductDetailApplication extends Application<AppConfiguration> {
 
     @Override
     public void initialize(Bootstrap<AppConfiguration> bootstrap) {
-        GuiceBundle<AppConfiguration> guiceBundle = GuiceBundle.<AppConfiguration>newBuilder().addModule(new AppModule())
+        GuiceBundle<AppConfiguration> guiceBundle = GuiceBundle.<AppConfiguration>newBuilder()
+                .addModule(new AppModule())
                 .setConfigClass(AppConfiguration.class)
                 .enableAutoConfig(getClass().getPackage().getName())
                 .build();

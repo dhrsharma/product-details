@@ -13,6 +13,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 
 @Path("/products/{id}")
@@ -30,15 +31,14 @@ public class ProductDetailsResource {
 
     @GET
     @Timed
-    public ProductInfoResponse getProductInfo(@PathParam("id") String productId) throws RetailException{
+    public Response getProductInfo(@PathParam("id") String productId) throws RetailException{
 
         LOG.info("Request received for ID {}", productId);
 
         ProductInfoResponse productResponse = service.getProductInfo(productId);
 
-        return productResponse;
+//        return productResponse;
 
-//        return Response.status(Response.Status.OK).entity(productResponse).build();
-
+        return Response.status(Response.Status.OK).entity(productResponse).build();
     }
 }
