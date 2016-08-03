@@ -14,7 +14,7 @@ public class RetailStoreImpl implements RetailStore {
 
     private final ManagedCassandraConnector connector;
 
-    private static final String SELECT_CQL_BY_ID = "SELECT * from retail.product_retail WHERE id = ?";
+    private static final String SELECT_CQL_BY_ID = "SELECT * from product_retail WHERE id = ?";
 
     @Inject
     public RetailStoreImpl(final ManagedCassandraConnector connector){
