@@ -1,22 +1,22 @@
 package com.dsworks.retail.resource;
 
 import com.codahale.metrics.annotation.Timed;
-import com.dsworks.retail.beans.ProductInfoResponse;
+import com.dsworks.retail.beans.ProductInfo;
+import com.dsworks.retail.beans.ResponseStatus;
 import com.dsworks.retail.exception.RetailException;
 import com.dsworks.retail.service.RetailService;
+import com.dsworks.retail.util.AppCodeConstants;
 import com.google.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.validation.Valid;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 
-@Path("/products/{id}")
+@Path("/products")
 @Produces(MediaType.APPLICATION_JSON)
 public class ProductDetailsResource {
 
@@ -25,20 +25,46 @@ public class ProductDetailsResource {
     private final RetailService service;
 
     @Inject
-    public ProductDetailsResource (final RetailService rtlService){
+    public ProductDetailsResource(final RetailService rtlService)
+    {
         this.service = rtlService;
     }
 
     @GET
     @Timed
-    public Response getProductInfo(@PathParam("id") String productId) throws RetailException{
+    @Path("/{id}")
+    public Response getProductInfo(@PathParam("id") String productId) throws RetailException
+    {
 
         LOG.info("Request received for ID {}", productId);
 
-        ProductInfoResponse productResponse = service.getProductInfo(productId);
-
-//        return productResponse;
+        ProductInfo productResponse = service.getProductInfo(productId);
 
         return Response.status(Response.Status.OK).entity(productResponse).build();
+    }
+
+
+    @POST
+    @Timed
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response createProduct(@Valid ProductInfo productInfo) throws RetailException
+    {
+        LOG.info("Update Request received for product {}", productInfo.getId());
+
+        service.createProduct(productInfo);
+
+        return Response.status(Response.Status.CREATED).entity(new ResponseStatus().setCode(AppCodeConstants.SUCCESS.getCode()).setMessage(AppCodeConstants.SUCCESS.getMessage())).build();
+    }
+
+    @PUT
+    @Timed
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response updateProductPrice(@Valid ProductInfo productInfo) throws RetailException
+    {
+        LOG.info("Update Request received for product {}", productInfo.getId());
+
+        service.updatePriceById(productInfo);
+
+        return Response.status(Response.Status.CREATED).entity(new ResponseStatus().setCode(AppCodeConstants.SUCCESS.getCode()).setMessage(AppCodeConstants.SUCCESS.getMessage())).build();
     }
 }

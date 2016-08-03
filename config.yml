@@ -38,5 +38,5 @@ cassandra:
   keyspace: product-ks
   validationQuery: select * from product
   #Make sure to use correct contactPoints as this Cassandra Single-Node instance is hosted in AWS EC2, hence can change.
-  contactPoints: [52.87.159.242]
+  contactPoints: [54.172.50.106]
   port: 9042

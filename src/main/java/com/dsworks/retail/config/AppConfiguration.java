@@ -22,22 +22,26 @@ public class AppConfiguration extends Configuration {
     private JerseyClientConfiguration jerseyClient = new JerseyClientConfiguration();
 
     @JsonProperty("cassandra")
-    public CassandraFactory getCassandraFactory() {
+    public CassandraFactory getCassandraFactory()
+    {
         return cassandra;
     }
 
     @JsonProperty("cassandra")
-    public void setCassandraFactory(CassandraFactory cassandra) {
+    public void setCassandraFactory(CassandraFactory cassandra)
+    {
         this.cassandra = cassandra;
     }
 
     @JsonProperty("jerseyClient")
-    public JerseyClientConfiguration getJerseyClient() {
+    public JerseyClientConfiguration getJerseyClient()
+    {
         return jerseyClient;
     }
 
     @JsonProperty("jerseyClient")
-    public void setJerseyClient(JerseyClientConfiguration jerseyClient) {
+    public void setJerseyClient(JerseyClientConfiguration jerseyClient)
+    {
         this.jerseyClient = jerseyClient;
     }
 }

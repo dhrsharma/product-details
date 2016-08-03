@@ -4,8 +4,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 public class Price {
+
     @JsonProperty
     private String value;
+
     @JsonProperty("currency_code")
     private String currencyCode;
 
@@ -18,6 +20,7 @@ public class Price {
         return this;
     }
 
+    @JsonProperty("currency_code")
     public String getCurrencyCode() {
         return currencyCode;
     }

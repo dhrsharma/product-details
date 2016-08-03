@@ -10,7 +10,7 @@ import io.dropwizard.setup.Environment;
 
 public class ProductDetailApplication extends Application<AppConfiguration> {
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
         new ProductDetailApplication().run(args);
     }
 

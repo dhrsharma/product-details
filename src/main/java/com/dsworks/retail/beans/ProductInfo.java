@@ -1,41 +1,51 @@
 package com.dsworks.retail.beans;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.validator.constraints.NotBlank;
 
 
-public class ProductInfoResponse {
-    //{"id":13860428,"name":"The Big Lebowski (Blu-ray) (Widescreen)","current_price":{"value": 13.49,"currency_code":"USD"}}
+public class ProductInfo {
 
+    @NotBlank
     @JsonProperty
     private String id;
+
     @JsonProperty
     private String name;
-    @JsonProperty("current_price")
-    private Price price;
 
-    public String getId() {
+    @JsonProperty("current_price")
+    private Price price = new Price();
+
+    public String getId()
+    {
         return id;
     }
 
-    public ProductInfoResponse setId(String id) {
+    public ProductInfo setId(String id)
+    {
         this.id = id;
         return this;
     }
 
-    public String getName() {
+    public String getName()
+    {
         return name;
     }
 
-    public ProductInfoResponse setName(String name) {
+    public ProductInfo setName(String name)
+    {
         this.name = name;
         return this;
     }
 
-    public Price getPrice() {
+    @JsonProperty("current_price")
+    public Price getPrice()
+    {
         return price;
     }
 
-    public ProductInfoResponse setPrice(Price price) {
+    public ProductInfo setPrice(Price price)
+    {
         this.price = price;
         return this;
     }
