@@ -25,16 +25,14 @@ public class ProductDetailsResource {
     private final RetailService service;
 
     @Inject
-    public ProductDetailsResource(final RetailService rtlService)
-    {
+    public ProductDetailsResource(final RetailService rtlService) {
         this.service = rtlService;
     }
 
     @GET
     @Timed
     @Path("/{id}")
-    public Response getProductInfo(@PathParam("id") String productId) throws RetailException
-    {
+    public Response getProductInfo(@PathParam("id") String productId) throws RetailException {
 
         LOG.info("Request received for ID {}", productId);
 
@@ -47,24 +45,28 @@ public class ProductDetailsResource {
     @POST
     @Timed
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response createProduct(@Valid ProductInfo productInfo) throws RetailException
-    {
+    public Response createProduct(@Valid ProductInfo productInfo) throws RetailException {
         LOG.info("Update Request received for product {}", productInfo.getId());
 
         service.createProduct(productInfo);
 
-        return Response.status(Response.Status.CREATED).entity(new ResponseStatus().setCode(AppCodeConstants.SUCCESS.getCode()).setMessage(AppCodeConstants.SUCCESS.getMessage())).build();
+        return Response.status(Response.Status.CREATED).entity(new ResponseStatus().setCode(AppCodeConstants.SUCCESS
+                                                                                                    .getCode())
+                                                                       .setMessage(AppCodeConstants.SUCCESS
+                                                                                           .getMessage())).build();
     }
 
     @PUT
     @Timed
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response updateProductPrice(@Valid ProductInfo productInfo) throws RetailException
-    {
+    public Response updateProductPrice(@Valid ProductInfo productInfo) throws RetailException {
         LOG.info("Update Request received for product {}", productInfo.getId());
 
         service.updatePriceById(productInfo);
 
-        return Response.status(Response.Status.CREATED).entity(new ResponseStatus().setCode(AppCodeConstants.SUCCESS.getCode()).setMessage(AppCodeConstants.SUCCESS.getMessage())).build();
+        return Response.status(Response.Status.CREATED).entity(new ResponseStatus().setCode(AppCodeConstants.SUCCESS
+                                                                                                    .getCode())
+                                                                       .setMessage(AppCodeConstants.SUCCESS
+                                                                                           .getMessage())).build();
     }
 }

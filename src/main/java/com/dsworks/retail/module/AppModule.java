@@ -14,8 +14,7 @@ public class AppModule extends AbstractModule {
     private ManagedCassandraConnector managedCassandraConnector;
 
     @Override
-    protected void configure()
-    {
+    protected void configure() {
         bind(RetailService.class);
         bind(RetailStore.class).to(RetailStoreImpl.class);
     }
@@ -26,10 +25,9 @@ public class AppModule extends AbstractModule {
      * @return ManagedCassandraConnector
      */
     @Provides
-    public ManagedCassandraConnector getCassandraConnector(final AppConfiguration config, final Environment environment)
-    {
-        if (managedCassandraConnector == null)
-        {
+    public ManagedCassandraConnector getCassandraConnector(final AppConfiguration config, final Environment
+            environment) {
+        if (managedCassandraConnector == null) {
             managedCassandraConnector = new ManagedCassandraConnector(environment, config);
         }
         return managedCassandraConnector;

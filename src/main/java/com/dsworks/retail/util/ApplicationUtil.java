@@ -8,10 +8,8 @@ import org.apache.commons.lang3.StringUtils;
 
 public final class ApplicationUtil {
 
-    public static ProductInfo convertToProductInfoResponse(final Product product)
-    {
-        if (product == null)
-        {
+    public static ProductInfo convertToProductInfoResponse(final Product product) {
+        if (product == null) {
             return null;
         }
         return new ProductInfo().setId(String.valueOf(product.getId()))
@@ -20,15 +18,14 @@ public final class ApplicationUtil {
     }
 
 
-    public static Product convertToProduct(final ProductInfo productInfo)
-    {
-        if (productInfo == null)
-        {
+    public static Product convertToProduct(final ProductInfo productInfo) {
+        if (productInfo == null) {
             return null;
         }
         return new Product().setId(Integer.parseInt(productInfo.getId()))
                 .setName(productInfo.getName())
-                .setPriceValue(StringUtils.isNotBlank(productInfo.getPrice().getValue()) ? Double.parseDouble(productInfo.getPrice().getValue()) : 0.0)
+                .setPriceValue(StringUtils.isNotBlank(productInfo.getPrice().getValue()) ? Double.parseDouble
+                        (productInfo.getPrice().getValue()) : 0.0)
                 .setCurrency(productInfo.getPrice().getCurrencyCode());
     }
 }

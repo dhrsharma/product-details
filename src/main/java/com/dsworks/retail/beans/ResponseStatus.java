@@ -11,24 +11,20 @@ public class ResponseStatus {
     @JsonProperty
     private String message;
 
-    public String getCode()
-    {
+    public String getCode() {
         return code;
     }
 
-    public ResponseStatus setCode(String code)
-    {
+    public ResponseStatus setCode(String code) {
         this.code = code;
         return this;
     }
 
-    public String getMessage()
-    {
+    public String getMessage() {
         return message;
     }
 
-    public ResponseStatus setMessage(String message)
-    {
+    public ResponseStatus setMessage(String message) {
         this.message = message;
         return this;
     }

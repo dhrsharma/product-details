@@ -6,13 +6,11 @@ public enum RetailProductAttributes {
 
     private final String value;
 
-    RetailProductAttributes(final String value)
-    {
+    RetailProductAttributes(final String value) {
         this.value = value;
     }
 
-    public String getValue()
-    {
+    public String getValue() {
         return value;
     }
 }

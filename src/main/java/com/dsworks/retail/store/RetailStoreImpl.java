@@ -18,21 +18,25 @@ public class RetailStoreImpl implements RetailStore {
     private final ManagedCassandraConnector connector;
 
     @Inject
-    public RetailStoreImpl(final ManagedCassandraConnector connector)
-    {
+    public RetailStoreImpl(final ManagedCassandraConnector connector) {
         this.connector = connector;
     }
 
     /**
      * {@inheritDoc}
      */
-    public Product getProductById(final int id) throws Exception
-    {
+    public Product getProductById(final int id) throws Exception {
         Product product = null;
         Row productRow = getRowById(id);
-        if (productRow != null)
-        {
-            product = new Product().setId(productRow.getInt(RetailProductAttributes.ID.getValue())).setName(productRow.getString(RetailProductAttributes.NAME.getValue())).setPriceValue(productRow.getDouble(RetailProductAttributes.PRICE.getValue())).setCurrency(productRow.getString(RetailProductAttributes.CURRENCY.getValue()));
+        if (productRow != null) {
+            product = new Product().setId(productRow.getInt
+                    (RetailProductAttributes.ID.getValue())).setName
+                    (productRow.getString(RetailProductAttributes.NAME
+                                                  .getValue())).setPriceValue
+                    (productRow.getDouble(RetailProductAttributes.PRICE
+                                                  .getValue())).setCurrency
+                    (productRow.getString(RetailProductAttributes.CURRENCY
+                                                  .getValue()));
         }
         return product;
     }
@@ -40,25 +44,38 @@ public class RetailStoreImpl implements RetailStore {
     /**
      * {@inheritDoc}
      */
-    public void saveProduct(Product product) throws Exception
-    {
-        if (product != null)
-        {
-            connector.getSession().execute(QueryBuilder.insertInto(RetailProductAttributes.PRODUCT_RETAIL.getValue()).ifNotExists().value(RetailProductAttributes.ID.getValue(), product.getId()).value(RetailProductAttributes.NAME.getValue(), product.getName()).value(RetailProductAttributes.PRICE.getValue(), product.getPriceValue()).value(RetailProductAttributes.CURRENCY.getValue(), product.getCurrency()));
+    public void saveProduct(Product product) throws Exception {
+        if (product != null) {
+            connector.getSession().execute(QueryBuilder.insertInto
+                    (RetailProductAttributes.PRODUCT_RETAIL.getValue())
+                                                   .ifNotExists().value
+                            (RetailProductAttributes.ID.getValue(),
+                             product.getId()).value
+                            (RetailProductAttributes.NAME.getValue(), product
+                                    .getName()).value
+                            (RetailProductAttributes.PRICE.getValue(),
+                             product.getPriceValue()).value
+                            (RetailProductAttributes.CURRENCY.getValue(),
+                             product.getCurrency()));
         }
     }
 
     /**
      * {@inheritDoc}
      */
-    public boolean updateProductPriceById(Product product) throws Exception
-    {
+    public boolean updateProductPriceById(Product product) throws Exception {
         boolean updateStatus = false;
 
-        if (product != null && getRowById(product.getId()) != null)
-        {
-            Statement updateCQL = QueryBuilder.update(RetailProductAttributes.PRODUCT_RETAIL.getValue()).with(set(RetailProductAttributes.PRICE.getValue(), Double.valueOf(product.getPriceValue()))).where(eq(RetailProductAttributes.ID.getValue(), Integer.valueOf(product.getId())));
-            updateStatus = connector.getSession().execute(updateCQL).wasApplied();
+        if (product != null && getRowById(product.getId()) != null) {
+            Statement updateCQL = QueryBuilder.update(RetailProductAttributes
+                                                              .PRODUCT_RETAIL
+                                                              .getValue())
+                    .with(set(RetailProductAttributes.PRICE.getValue(),
+                              Double.valueOf(product.getPriceValue()))).where
+                            (eq(RetailProductAttributes.ID.getValue(),
+                                Integer.valueOf(product.getId())));
+            updateStatus = connector.getSession().execute(updateCQL)
+                    .wasApplied();
         }
         return updateStatus;
     }
@@ -67,8 +84,9 @@ public class RetailStoreImpl implements RetailStore {
      * @param id
      * @return {@link Row}
      */
-    private Row getRowById(final int id)
-    {
-        return connector.getSession().execute(QueryBuilder.select().from(RetailProductAttributes.PRODUCT_RETAIL.getValue()).where(eq(RetailProductAttributes.ID.getValue(), id))).one();
+    private Row getRowById(final int id) {
+        return connector.getSession().execute(QueryBuilder.select().from
+                (RetailProductAttributes.PRODUCT_RETAIL
+                         .getValue()).where(eq(RetailProductAttributes.ID.getValue(), id))).one();
     }
 }

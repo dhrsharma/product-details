@@ -14,33 +14,27 @@ public class ManagedCassandraConnector implements Managed {
     private Cluster cluster;
     private Session session;
 
-    public ManagedCassandraConnector(final Environment environment, final AppConfiguration appConfiguration)
-    {
+    public ManagedCassandraConnector(final Environment environment, final AppConfiguration appConfiguration) {
         this.appConfiguration = appConfiguration;
         this.environment = environment;
     }
 
-    public Session getSession()
-    {
+    public Session getSession() {
         return this.session;
     }
 
     @Override
-    public void start() throws Exception
-    {
+    public void start() throws Exception {
         this.cluster = appConfiguration.getCassandraFactory().build(environment);
         this.session = cluster.connect(RETAIL_KEYSPACE);
     }
 
     @Override
-    public void stop() throws Exception
-    {
-        if (session != null)
-        {
+    public void stop() throws Exception {
+        if (session != null) {
             session.close();
         }
-        if (cluster != null)
-        {
+        if (cluster != null) {
             cluster.close();
         }
     }

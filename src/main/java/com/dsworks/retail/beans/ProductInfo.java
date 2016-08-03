@@ -16,36 +16,30 @@ public class ProductInfo {
     @JsonProperty("current_price")
     private Price price = new Price();
 
-    public String getId()
-    {
+    public String getId() {
         return id;
     }
 
-    public ProductInfo setId(String id)
-    {
+    public ProductInfo setId(String id) {
         this.id = id;
         return this;
     }
 
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
-    public ProductInfo setName(String name)
-    {
+    public ProductInfo setName(String name) {
         this.name = name;
         return this;
     }
 
     @JsonProperty("current_price")
-    public Price getPrice()
-    {
+    public Price getPrice() {
         return price;
     }
 
-    public ProductInfo setPrice(Price price)
-    {
+    public ProductInfo setPrice(Price price) {
         this.price = price;
         return this;
     }
