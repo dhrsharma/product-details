@@ -21,6 +21,9 @@ public class AppConfiguration extends Configuration {
     @JsonProperty("jerseyClient")
     private JerseyClientConfiguration jerseyClient = new JerseyClientConfiguration();
 
+    @JsonProperty("nameServiceURL")
+    private String nameServiceURL;
+
     @JsonProperty("cassandra")
     public CassandraFactory getCassandraFactory() {
         return cassandra;
@@ -39,5 +42,15 @@ public class AppConfiguration extends Configuration {
     @JsonProperty("jerseyClient")
     public void setJerseyClient(JerseyClientConfiguration jerseyClient) {
         this.jerseyClient = jerseyClient;
+    }
+
+    @JsonProperty("nameServiceURL")
+    public String getNameServiceURL() {
+        return nameServiceURL;
+    }
+
+    @JsonProperty("nameServiceURL")
+    public void setNameServiceURL(String nameServiceURL) {
+        this.nameServiceURL = nameServiceURL;
     }
 }

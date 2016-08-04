@@ -3,6 +3,7 @@ package com.dsworks.retail.exception;
 import com.dsworks.retail.beans.ResponseStatus;
 import com.dsworks.retail.util.AppCodeConstants;
 
+import javax.ws.rs.BadRequestException;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
@@ -23,6 +24,11 @@ public class RetailExceptionMapper implements ExceptionMapper<Exception> {
             status = Response.Status.NOT_FOUND;
             error.setCode(AppCodeConstants.RESOURCE_NOT_FOUND.getCode()).setMessage(AppCodeConstants
                                                                                             .RESOURCE_NOT_FOUND
+                                                                                            .getMessage());
+        } else if (exception instanceof BadRequestException) {
+            status = Response.Status.BAD_REQUEST;
+            error.setCode(AppCodeConstants.INPUT_VALIDATION_FAILED.getCode()).setMessage(AppCodeConstants
+                                                                                                 .INPUT_VALIDATION_FAILED
                                                                                             .getMessage());
         } else {
             status = Response.Status.INTERNAL_SERVER_ERROR;

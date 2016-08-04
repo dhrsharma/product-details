@@ -1,25 +1,25 @@
 package com.dsworks.retail.store;
 
 import com.datastax.driver.core.Row;
+import com.datastax.driver.core.Session;
 import com.datastax.driver.core.Statement;
 import com.datastax.driver.core.querybuilder.QueryBuilder;
 import com.dsworks.retail.api.RetailStore;
 import com.dsworks.retail.model.Product;
 import com.dsworks.retail.model.RetailProductAttributes;
-import com.dsworks.retail.module.ManagedCassandraConnector;
 import com.google.inject.Inject;
 
 import static com.datastax.driver.core.querybuilder.QueryBuilder.eq;
 import static com.datastax.driver.core.querybuilder.QueryBuilder.set;
 
 
-public class RetailStoreImpl implements RetailStore {
+public class RetailStoreImpl implements RetailStore<Product> {
 
-    private final ManagedCassandraConnector connector;
+    private final Session session;
 
     @Inject
-    public RetailStoreImpl(final ManagedCassandraConnector connector) {
-        this.connector = connector;
+    public RetailStoreImpl(final Session session) {
+        this.session = session;
     }
 
     /**
@@ -44,9 +44,9 @@ public class RetailStoreImpl implements RetailStore {
     /**
      * {@inheritDoc}
      */
-    public void saveProduct(Product product) throws Exception {
+    public void saveProduct(final Product product) throws Exception {
         if (product != null) {
-            connector.getSession().execute(QueryBuilder.insertInto
+            session.execute(QueryBuilder.insertInto
                     (RetailProductAttributes.PRODUCT_RETAIL.getValue())
                                                    .ifNotExists().value
                             (RetailProductAttributes.ID.getValue(),
@@ -63,7 +63,7 @@ public class RetailStoreImpl implements RetailStore {
     /**
      * {@inheritDoc}
      */
-    public boolean updateProductPriceById(Product product) throws Exception {
+    public boolean updateProductPriceById(final Product product) throws Exception {
         boolean updateStatus = false;
 
         if (product != null && getRowById(product.getId()) != null) {
@@ -74,7 +74,7 @@ public class RetailStoreImpl implements RetailStore {
                               Double.valueOf(product.getPriceValue()))).where
                             (eq(RetailProductAttributes.ID.getValue(),
                                 Integer.valueOf(product.getId())));
-            updateStatus = connector.getSession().execute(updateCQL)
+            updateStatus = session.execute(updateCQL)
                     .wasApplied();
         }
         return updateStatus;
@@ -85,7 +85,7 @@ public class RetailStoreImpl implements RetailStore {
      * @return {@link Row}
      */
     private Row getRowById(final int id) {
-        return connector.getSession().execute(QueryBuilder.select().from
+        return session.execute(QueryBuilder.select().from
                 (RetailProductAttributes.PRODUCT_RETAIL
                          .getValue()).where(eq(RetailProductAttributes.ID.getValue(), id))).one();
     }

@@ -1,7 +1,9 @@
 package com.dsworks.retail.model;
 
 
-public class Product {
+import com.dsworks.retail.api.RetailMarker;
+
+public class Product implements RetailMarker {
 
     private int id;
     private String name;

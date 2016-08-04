@@ -1,12 +1,10 @@
 package com.dsworks.retail.beans;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.hibernate.validator.constraints.NotBlank;
 
 
 public class ProductInfo {
 
-    @NotBlank
     @JsonProperty
     private String id;
 

@@ -2,7 +2,8 @@ package com.dsworks.retail.model;
 
 
 public enum RetailProductAttributes {
-    PRODUCT_RETAIL("product_retail"), ID("id"), NAME("name"), PRICE("price"), CURRENCY("currency");
+    REATIL_KEYSPACE("retail"), PRODUCT_RETAIL("product_retail"), ID("id"), NAME("name"), PRICE("price"), CURRENCY
+            ("currency");
 
     private final String value;
 

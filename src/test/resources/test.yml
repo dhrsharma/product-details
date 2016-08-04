@@ -26,18 +26,18 @@ logging:
       timeZone: UTC
       maxFileSize: 10MB
 jerseyClient:
-  retries: 2
-  connectionTimeout: 5 s
+  retries: 3
+  connectionTimeout: 10 s
   timeout: 10 s
   tls:
     keyStorePath: src/main/resources/dskeystore.jks
     keyStorePassword: passw0rd
     keyStoreType: JKS
 cassandra:
-  clusterName: retail_cass
-  keyspace: retail
-  validationQuery: select * from retail.product_retail
-  #Make sure to use correct contactPoints as this Cassandra Single-Node instance is hosted in AWS EC2, hence can change.
-  contactPoints: [54.172.50.106]
-  port: 9042
+  clusterName: cass1
+  keyspace: product-ks
+  validationQuery: select * from product
+  #CassandraUnit provides cassandra server at localhost for testing
+  contactPoints: [localhost]
+  port: 9142
 nameServiceURL: http://localhost:9000/myretail/products/v1

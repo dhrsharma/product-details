@@ -41,12 +41,24 @@ public class ProductDetailsResource {
         return Response.status(Response.Status.OK).entity(productResponse).build();
     }
 
+    @GET
+    @Timed
+    @Path("/v1/{pId}")
+    public Response getProductName(@PathParam("pId") String productId,
+            @DefaultValue("descriptions") @QueryParam("fields") String fields,
+            @DefaultValue("TCIN") @QueryParam("id_type") String idType) throws RetailException {
+
+        LOG.info("Request received for Product Name for ID {}", productId);
+
+        return Response.ok(String.format("MacBook Pro %s", productId)).build();
+    }
+
 
     @POST
     @Timed
     @Consumes(MediaType.APPLICATION_JSON)
     public Response createProduct(@Valid ProductInfo productInfo) throws RetailException {
-        LOG.info("Update Request received for product {}", productInfo.getId());
+        LOG.info("Create Product Request received for ID {}", productInfo.getId());
 
         service.createProduct(productInfo);
 

@@ -2,6 +2,7 @@ package com.dsworks.retail;
 
 import com.dsworks.retail.config.AppConfiguration;
 import com.dsworks.retail.module.AppModule;
+import com.google.inject.Stage;
 import com.hubspot.dropwizard.guice.GuiceBundle;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
@@ -20,7 +21,7 @@ public class ProductDetailApplication extends Application<AppConfiguration> {
                 .addModule(new AppModule())
                 .setConfigClass(AppConfiguration.class)
                 .enableAutoConfig(getClass().getPackage().getName())
-                .build();
+                .build(Stage.DEVELOPMENT);
         bootstrap.addBundle(guiceBundle);
 
     }
